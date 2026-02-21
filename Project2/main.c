@@ -62,12 +62,12 @@ int main(int argc, char* argv[])
 			if (event.type == SDL_KEYDOWN)
 			switch (event.key.keysym.sym) {
 			case SDLK_w:
-				MovY = MovY - 1;
-				printf("%f\n", MovY);
+				MovZ = MovZ + 1;
+				printf("%f\n", MovZ);
 				break;
 			case SDLK_s:
-				MovY = MovY + 1;
-				printf("%f\n", MovY);
+				MovZ = MovZ - 1;
+				printf("%f\n", MovZ);
 				break;
 			case SDLK_a:
 				MovX = MovX - 1;
@@ -100,7 +100,7 @@ int main(int argc, char* argv[])
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
-		glTranslatef(MovX + dirX,MovY + dirY,MovZ + dirZ);
+		glTranslatef(MovX * dirX,MovY * dirY,MovZ * dirZ);
 		glRotatef(-pitch, 1.0f, 0.0f, 0.0f); // pitch
 		glRotatef(-yaw, 0.0f, 1.0f, 0.0f); // yaw
 //World gen//
