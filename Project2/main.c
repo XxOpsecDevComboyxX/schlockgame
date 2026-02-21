@@ -94,6 +94,10 @@ int main(int argc, char* argv[])
 		radYaw = yaw * M_PI / 180.0f;
 		radPitch = pitch * M_PI / 180.0f;
 
+		dirX = cos(radPitch) * cos(radYaw);
+		float dirY = sin(radPitch);
+		float dirZ = cos(radPitch) * sin(radYaw);
+
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
 		glTranslatef(MovX + dirX,MovY + dirY,MovZ + dirZ);
