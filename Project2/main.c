@@ -47,7 +47,13 @@ int main(int argc, char* argv[])
 	float pitch = 0.0;
 	float radYaw = 0.0;
 	float radPitch = 0.0;
-	float dirX = 0.0;
+	float dirX = cos(radPitch) * cos(radYaw);
+	float dirY = sin(radPitch);
+	float dirZ = -cos(radPitch) * sin(radYaw);
+
+	float camX = 0.0f;
+	float camY = 0.0f;
+	float camZ = 0.0f;
 	
 	while (running)
 	{
@@ -60,10 +66,12 @@ int main(int argc, char* argv[])
 			if (event.type == SDL_KEYDOWN)
 			switch (event.key.keysym.sym) {
 			case SDLK_w:
-				printf("Up arrow pressed\n");
+				camX += dirX * 0.1f;
+				camZ += dirZ * 0.1f;
 				break;
 			case SDLK_s:
-				printf("Down arrow pressed\n");
+				camX -= dirX * 0.1f;
+				camZ -= dirZ * 0.1f;
 				break;
 			case SDLK_a:
 				printf("Left arrow pressed\n");
@@ -89,13 +97,9 @@ int main(int argc, char* argv[])
 		radYaw = yaw * M_PI / 180.0f;
 		radPitch = pitch * M_PI / 180.0f;
 
-		dirX = cos(radPitch) * cos(radYaw);
-		float dirY = sin(radPitch);
-		float dirZ = cos(radPitch) * sin(radYaw);
-
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
-		glTranslatef(0.0, 0.0, -15.0);
+		glTranslatef(-camX, -camY, -camZ);
 		glRotatef(-pitch, 1.0f, 0.0f, 0.0f); // pitch
 		glRotatef(-yaw, 0.0f, 1.0f, 0.0f); // yaw
 //World gen//
