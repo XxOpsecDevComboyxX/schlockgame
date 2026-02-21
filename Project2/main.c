@@ -49,26 +49,11 @@ int main(int argc, char* argv[])
 
 			if (event.type == SDL_MOUSEMOTION)
 			{
-				switch (event.key.keysym.sym) {
-				case SDLK_UP:
-					printf("Up arrow pressed\n");
-					yaw += 1;
-					break;
-				case SDLK_DOWN:
-					printf("Down arrow pressed\n");
-					yaw -= 1;
-					break;
-				case SDLK_LEFT:
-					printf("Left arrow pressed\n");
-					pitch += 1;
-					break;
-				case SDLK_RIGHT:
-					printf("Right arrow pressed\n");
-					pitch -= 1;
-					break;
-				default:
-					break;
-				}
+
+				yaw += event.motion.xrel * 0.1f;
+				pitch += event.motion.yrel * 0.1f;
+				if (pitch > 89.0f) pitch = 89.0f;
+				if (pitch < -89.0f) pitch = -89.0f;
 			}
 		}
 
@@ -82,10 +67,9 @@ int main(int argc, char* argv[])
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		//Where we render myfaef
 		glLoadIdentity();
-		glTranslatef(0.0, 0.0, 0.0);
-		glRotatef(pitch, dirX, 0.0, 0.0); // pitch
-		glRotatef(yaw, dirX, 0.0, 0.0); // yaw
-		glBegin(GL_QUADS);
+		glTranslatef(0.0, 2.0, 2.0);
+		glRotatef(-pitch, 1.0f, 0.0f, 0.0f); // pitch
+		glRotatef(-yaw, 0.0f, 1.0f, 0.0f); // yaw
 
 		renderBlock();
 
