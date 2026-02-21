@@ -22,16 +22,16 @@ int main(int argc, char* argv[])
 
 	if (!window)
 		return 1;
-	/////////////////////
-	//MY CODE jigga!!!!//
-	/////////////////////
 	SDL_GLContext glCONTEXT = SDL_GL_CreateContext(window);
 
 	if (!glCONTEXT)
 		return 1;
 
+	SDL_SetRelativeMouseMode(SDL_TRUE);
+
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
+	//glEnable(GL_LIGHTING);
 	glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 
 	int running = 1;
@@ -67,6 +67,14 @@ int main(int argc, char* argv[])
 					break;
 				}
 			}
+
+			if (event.type == SDL_MOUSEMOTION)
+			{
+				yaw +=  1.0f;
+				pitch += 1.0f;
+				if (pitch > 89.0f) pitch = 89.0f;
+				if (pitch < -89.0f) pitch = -89.0f;
+			}
 		}
 
 		float radYaw = yaw * M_PI / 180.0f;
@@ -80,9 +88,8 @@ int main(int argc, char* argv[])
 		//Where we render myfaef
 		glLoadIdentity();
 		glTranslatef(0.0, 0.0, 0.0);
-		glRotatef(pitch, dirX, 0.0, 0.0); // pitch
-		glRotatef(yaw, dirX, 0.0, 0.0); // yaw
-		glBegin(GL_QUADS);
+		glRotatef(-pitch, dirX, dirY, dirZ); // pitch
+		glRotatef(-yaw, dirX, dirY, dirZ); // yaw
 
 		renderBlock();
 
