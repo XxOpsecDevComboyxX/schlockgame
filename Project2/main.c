@@ -3,6 +3,7 @@
 #include <SDL.h>
 #include <stdio.h>
 #include <math.h>
+#include "Block.h"
 int main(int argc, char* argv[])
 {
 	float yaw = 0.0;
@@ -81,45 +82,8 @@ int main(int argc, char* argv[])
 		glTranslatef(0.0, 0.0, 0.0);
 		glRotatef(pitch, dirX, dirY, dirZ); // pitch
 		glRotatef(yaw, dirX, dirY, dirZ); // yaw
-		glBegin(GL_QUADS);
 
-		glColor3f(1.0f, 0.0f, 0.0f);
-		glVertex3f(-0.5f, -0.5f, 0.5f);
-		glVertex3f(0.5f, -0.5f, 0.5f);
-		glVertex3f(0.5f, 0.5f, 0.5f);
-		glVertex3f(-0.5f, 0.5f, 0.5f);
-
-		glColor3f(0.0f, 1.0f, 0.0f);
-		glVertex3f(-0.5f, -0.5f, -0.5f);
-		glVertex3f(-0.5f, 0.5f, -0.5f);
-		glVertex3f(0.5f, 0.5f, -0.5f);
-		glVertex3f(0.5f, -0.5f, -0.5f);
-
-		glColor3f(0.0f, 0.0f, 1.0f);
-		glVertex3f(-0.5f, -0.5f, -0.5f);
-		glVertex3f(-0.5f, -0.5f, 0.5f);
-		glVertex3f(-0.5f, 0.5f, 0.5f);
-		glVertex3f(-0.5f, 0.5f, -0.5f);
-
-		glColor3f(1.0f, 0.0f, 1.0f);
-		glVertex3f(0.5f, -0.5f, -0.5f);
-		glVertex3f(0.5f, 0.5f, -0.5f);
-		glVertex3f(0.5f, 0.5f, 0.5f);
-		glVertex3f(0.5f, -0.5f, 0.5f);
-
-		glColor3f(1.0f, 1.0f, 0.0f);
-		glVertex3f(-0.5f, 0.5f, -0.5f);
-		glVertex3f(-0.5f, 0.5f, 0.5f);
-		glVertex3f(0.5f, 0.5f, 0.5f);
-		glVertex3f(0.5f, 0.5f, -0.5f);
-
-		glColor3f(0.0f, 1.0f, 1.0f);
-		glVertex3f(-0.5f, -0.5f, -0.5f);
-		glVertex3f(0.5f, -0.5f, -0.5f);
-		glVertex3f(0.5f, -0.5f, 0.5f);
-		glVertex3f(-0.5f, -0.5f, 0.5f);
-
-		glEnd();
+		renderBlock();
 
 		SDL_GL_SwapWindow(window);
 
