@@ -48,7 +48,9 @@ int main(int argc, char* argv[])
 	float radYaw = 0.0;
 	float radPitch = 0.0;
 	float dirX = 0.0;
-	
+	float MovX = 0.0;
+	float MovY = 0.0;
+	float MovZ = 0.0;
 	while (running)
 	{
 		while (SDL_PollEvent(&event))
@@ -56,21 +58,24 @@ int main(int argc, char* argv[])
 			if (event.type == SDL_QUIT)
 				running = 0;
 //camera movement
-			
+
 			if (event.type == SDL_KEYDOWN)
 			switch (event.key.keysym.sym) {
 			case SDLK_w:
-				printf("Up arrow pressed\n");
+				MovY = MovY - 1;
+				printf("%f\n", MovY);
 				break;
 			case SDLK_s:
-				printf("Down arrow pressed\n");
+				MovY = MovY + 1;
+				printf("%f\n", MovY);
 				break;
 			case SDLK_a:
-				printf("Left arrow pressed\n");
+				MovX = MovX - 1;
+				printf("%f\n", MovX);
 				break;
 			case SDLK_d:
-				printf("Right arrow pressed\n");
-				break;
+				MovX = MovX + 1;
+				printf("%f\n", MovX);
 			default:
 				break;
 			}
@@ -95,7 +100,7 @@ int main(int argc, char* argv[])
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
-		glTranslatef(0.0, 0.0, -15.0);
+		glTranslatef(MovX + dirX,MovY + dirY,MovZ + dirZ);
 		glRotatef(-pitch, 1.0f, 0.0f, 0.0f); // pitch
 		glRotatef(-yaw, 0.0f, 1.0f, 0.0f); // yaw
 //World gen//
