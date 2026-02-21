@@ -66,13 +66,15 @@ int main(int argc, char* argv[])
 			if (event.type == SDL_KEYDOWN)
 			switch (event.key.keysym.sym) {
 			case SDLK_w:
-				MovX += dirX;
-				MovZ += dirZ;
+				MovX -= dirX;
+				MovZ -= dirZ;
+				MovY += dirY;
 				printf("%f\n", MovZ);
 				break;
 			case SDLK_s:
-				MovX -= dirX;
-				MovZ -= dirZ;
+				MovX += dirX;
+				MovZ += dirZ;
+				MovY -= dirY;
 				printf("%f\n", MovZ);
 				break;
 			case SDLK_a:
@@ -99,6 +101,10 @@ int main(int argc, char* argv[])
 
 		radYaw = yaw * M_PI / 180.0f;
 		radPitch = pitch * M_PI / 180.0f;
+		dirX = cos(radPitch) * sin(radYaw);
+		dirY = sin(radPitch);
+		dirZ = -cos(radPitch) * cos(radYaw);
+
 		dirX = cos(radPitch) * sin(radYaw);
 		dirY = sin(radPitch);
 		dirZ = -cos(radPitch) * cos(radYaw);
