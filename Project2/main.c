@@ -36,7 +36,7 @@ int main(int argc, char* argv[])
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
-	glEnable(GL_LIGHTING);
+//glEnable(GL_LIGHTING);
 	glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 
 	int running = 1;
@@ -56,6 +56,8 @@ int main(int argc, char* argv[])
 			if (event.type == SDL_QUIT)
 				running = 0;
 //camera movement
+			
+			if (event.type == SDL_KEYDOWN)
 			switch (event.key.keysym.sym) {
 			case SDLK_w:
 				printf("Up arrow pressed\n");
@@ -72,6 +74,8 @@ int main(int argc, char* argv[])
 			default:
 				break;
 			}
+//camera rotation
+
 			if (event.type == SDL_MOUSEMOTION)
 			{
 
@@ -94,7 +98,7 @@ int main(int argc, char* argv[])
 		glTranslatef(0.0, 0.0, -15.0);
 		glRotatef(-pitch, 1.0f, 0.0f, 0.0f); // pitch
 		glRotatef(-yaw, 0.0f, 1.0f, 0.0f); // yaw
-		//World gen//
+//World gen//
 		
 		int width;
 		int length;
