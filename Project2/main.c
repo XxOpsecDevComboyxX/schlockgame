@@ -47,14 +47,10 @@ int main(int argc, char* argv[])
 	float pitch = 0.0;
 	float radYaw = 0.0;
 	float radPitch = 0.0;
-	float dirX = cos(radPitch) * cos(radYaw);
-	float dirY = sin(radPitch);
-	float dirZ = -cos(radPitch) * sin(radYaw);
-
-	float camX = 0.0f;
-	float camY = 0.0f;
-	float camZ = 0.0f;
-	
+	float dirX = 0.0;
+	float MovX = 0.0;
+	float MovY = 0.0;
+	float MovZ = 0.0;
 	while (running)
 	{
 		while (SDL_PollEvent(&event))
@@ -62,23 +58,24 @@ int main(int argc, char* argv[])
 			if (event.type == SDL_QUIT)
 				running = 0;
 //camera movement
-			
+
 			if (event.type == SDL_KEYDOWN)
 			switch (event.key.keysym.sym) {
 			case SDLK_w:
-				camX += dirX * 0.1f;
-				camZ += dirZ * 0.1f;
+				MovY = MovY - 1;
+				printf("%f\n", MovY);
 				break;
 			case SDLK_s:
-				camX -= dirX * 0.1f;
-				camZ -= dirZ * 0.1f;
+				MovY = MovY + 1;
+				printf("%f\n", MovY);
 				break;
 			case SDLK_a:
-				printf("Left arrow pressed\n");
+				MovX = MovX - 1;
+				printf("%f\n", MovX);
 				break;
 			case SDLK_d:
-				printf("Right arrow pressed\n");
-				break;
+				MovX = MovX + 1;
+				printf("%f\n", MovX);
 			default:
 				break;
 			}
@@ -99,7 +96,7 @@ int main(int argc, char* argv[])
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
-		glTranslatef(-camX, -camY, -camZ);
+		glTranslatef(MovX + dirX,MovY + dirY,MovZ + dirZ);
 		glRotatef(-pitch, 1.0f, 0.0f, 0.0f); // pitch
 		glRotatef(-yaw, 0.0f, 1.0f, 0.0f); // yaw
 //World gen//
