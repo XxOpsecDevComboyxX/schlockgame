@@ -1,5 +1,6 @@
 #include <windows.h>
 #include <gl\GL.h>
+#include <gl\GLU.h>
 #include <SDL.h>
 #include <stdio.h>
 #include <math.h>
@@ -31,6 +32,12 @@ int main(int argc, char* argv[])
 		return 1;
 
 	SDL_SetRelativeMouseMode(SDL_TRUE);
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(45.0, 640.0 / 480.0, 0.1, 100.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
@@ -65,13 +72,12 @@ int main(int argc, char* argv[])
 		float dirZ = cos(radPitch) * sin(radYaw);
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		//Where we render myfaef
 		glLoadIdentity();
-		glTranslatef(0.0, 2.0, 2.0);
+		glTranslatef(0.0, 0.0, 0.0);
 		glRotatef(-pitch, 1.0f, 0.0f, 0.0f); // pitch
 		glRotatef(-yaw, 0.0f, 1.0f, 0.0f); // yaw
 
-		renderBlock();
+		renderBlock(0.0, 0.0, 0.0);
 
 		SDL_GL_SwapWindow(window);
 

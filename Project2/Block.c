@@ -2,7 +2,9 @@
 #include <windows.h>
 #include <gl\GL.h>
 
-void renderBlock() {
+void renderBlock(float x, float y, float z) {
+	glPushMatrix();
+	glTranslatef(x, y, z);
 	glBegin(GL_QUADS);
 
 	glColor3f(1.0f, 0.0f, 0.0f);
@@ -42,4 +44,6 @@ void renderBlock() {
 	glVertex3f(-1, -1, 1);
 
 	glEnd();
+
+	glPopMatrix();
 }
