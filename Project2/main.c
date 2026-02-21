@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <math.h>
 #include "Block.h"
-#include <concurrent_vector.h>
+
 int main(int argc, char* argv[])
 {
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
@@ -78,11 +78,15 @@ int main(int argc, char* argv[])
 				printf("%f\n", MovZ);
 				break;
 			case SDLK_a:
-				MovX = MovX - 1;
+				MovX += dirX;
+				MovZ -= dirZ;
+				MovY -= dirY;
 				printf("%f\n", MovX);
 				break;
 			case SDLK_d:
-				MovX = MovX + 1;
+				MovX += dirX;
+				MovZ -= dirZ;
+				MovY += dirY;
 				printf("%f\n", MovX);
 			default:
 				break;
@@ -101,10 +105,6 @@ int main(int argc, char* argv[])
 
 		radYaw = yaw * M_PI / 180.0f;
 		radPitch = pitch * M_PI / 180.0f;
-		dirX = cos(radPitch) * sin(radYaw);
-		dirY = sin(radPitch);
-		dirZ = -cos(radPitch) * cos(radYaw);
-
 		dirX = cos(radPitch) * sin(radYaw);
 		dirY = sin(radPitch);
 		dirZ = -cos(radPitch) * cos(radYaw);
