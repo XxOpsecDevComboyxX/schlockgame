@@ -73,11 +73,22 @@ int main(int argc, char* argv[])
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
-		glTranslatef(0.0, 0.0, -5.0);
+		glTranslatef(0.0, 0.0, -25.0);
 		glRotatef(-pitch, 1.0f, 0.0f, 0.0f); // pitch
 		glRotatef(-yaw, 0.0f, 1.0f, 0.0f); // yaw
-
-		renderBlock(0.0, 0.0, 0.0);
+		int width;
+		int length;
+		int height;
+		float X = 0;
+		for (width = 0; width <= 10; width++) {
+			for (length = 0; length <= 10; length++) {
+				for (height = 0; height <= 10; height++) {
+					renderBlock(2.0f * width, 2.0f * height, 2.0f * length);
+				}
+			}
+			
+			
+		}
 
 		SDL_GL_SwapWindow(window);
 
