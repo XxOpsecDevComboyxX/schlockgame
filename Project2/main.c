@@ -8,6 +8,9 @@ int main(int argc, char* argv[])
 {
 	float yaw = 0.0;
 	float pitch = 0.0;
+	float radYaw = 0.0;
+	float radPitch = 0.0;
+	float dirX = 0.0;
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 		return 1;
 
@@ -48,8 +51,10 @@ int main(int argc, char* argv[])
 			{
 				switch (event.key.keysym.sym) {
 				case SDLK_UP:
-					printf("Up arrow pressed\n");
-					yaw += 1;
+					printf("Up arrow pressed|%f\n",dirX);
+					if (radYaw < 89){
+						yaw += 1;
+					}
 					break;
 				case SDLK_DOWN:
 					printf("Down arrow pressed\n");
@@ -69,10 +74,10 @@ int main(int argc, char* argv[])
 			}
 		}
 
-		float radYaw = yaw * M_PI / 180.0f;
-		float radPitch = pitch * M_PI / 180.0f;
+		radYaw = yaw * M_PI / 180.0f;
+		radPitch = pitch * M_PI / 180.0f;
 
-		float dirX = cos(radPitch) * cos(radYaw);
+		dirX = cos(radPitch) * cos(radYaw);
 		float dirY = sin(radPitch);
 		float dirZ = cos(radPitch) * sin(radYaw);
 
@@ -82,7 +87,6 @@ int main(int argc, char* argv[])
 		glTranslatef(0.0, 0.0, 0.0);
 		glRotatef(pitch, dirX, 0.0, 0.0); // pitch
 		glRotatef(yaw, dirX, 0.0, 0.0); // yaw
-		glBegin(GL_QUADS);
 
 		renderBlock();
 
