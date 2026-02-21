@@ -41,7 +41,7 @@ int main(int argc, char* argv[])
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
-	//glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHTING);
 	glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 
 	int running = 1;
@@ -73,11 +73,12 @@ int main(int argc, char* argv[])
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
-		glTranslatef(0.0, 0.0, -5.0);
+		glTranslatef(0.0, 0.0, -15.0);
 		glRotatef(-pitch, 1.0f, 0.0f, 0.0f); // pitch
 		glRotatef(-yaw, 0.0f, 1.0f, 0.0f); // yaw
 
-		renderBlock(0.0, 0.0, 0.0);
+		renderBlock(0.0f, 0.0f, 0.0f);
+		renderBlock(2.0f, 0.0f, 0.0f);
 
 		SDL_GL_SwapWindow(window);
 
