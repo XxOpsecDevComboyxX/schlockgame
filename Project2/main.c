@@ -53,6 +53,8 @@ int main(int argc, char* argv[])
 	float dirX = 0.0;
 	float dirY = 0.0;
 	float dirZ = 0.0;
+	float rightX = 0.0;
+	float rightZ = 0.0;
 
 	while (running)
 	{
@@ -77,11 +79,13 @@ int main(int argc, char* argv[])
 				printf("%f\n", MovZ);
 				break;
 			case SDLK_a:
-				MovX = MovX - 1;
+				MovX += rightX;
+				MovZ += rightZ;
 				printf("%f\n", MovX);
 				break;
 			case SDLK_d:
-				MovX = MovX + 1;
+				MovX -= rightX;
+				MovZ -= rightZ;
 				printf("%f\n", MovX);
 			default:
 				break;
@@ -104,6 +108,9 @@ int main(int argc, char* argv[])
 		dirX = cos(radPitch) * sin(radYaw);
 		dirY = sin(radPitch);
 		dirZ = -cos(radPitch) * cos(radYaw);
+
+		rightX = cos(radYaw);
+		rightZ = sin(radYaw);
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
