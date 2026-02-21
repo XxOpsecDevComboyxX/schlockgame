@@ -47,10 +47,13 @@ int main(int argc, char* argv[])
 	float pitch = 0.0;
 	float radYaw = 0.0;
 	float radPitch = 0.0;
-	float dirX = 0.0;
 	float MovX = 0.0;
 	float MovY = 0.0;
 	float MovZ = 0.0;
+	float dirX = cos(radPitch) * sin(radYaw);
+	float dirY = sin(radPitch);
+	float dirZ = -cos(radPitch) * cos(radYaw);
+
 	while (running)
 	{
 		while (SDL_PollEvent(&event))
@@ -62,11 +65,13 @@ int main(int argc, char* argv[])
 			if (event.type == SDL_KEYDOWN)
 			switch (event.key.keysym.sym) {
 			case SDLK_w:
-				MovZ = MovZ + 1;
+				MovX += dirX;
+				MovZ += dirZ;
 				printf("%f\n", MovZ);
 				break;
 			case SDLK_s:
-				MovZ = MovZ - 1;
+				MovX -= dirX;
+				MovZ -= dirZ;
 				printf("%f\n", MovZ);
 				break;
 			case SDLK_a:
@@ -94,15 +99,12 @@ int main(int argc, char* argv[])
 		radYaw = yaw * M_PI / 180.0f;
 		radPitch = pitch * M_PI / 180.0f;
 
-		dirX = cos(radPitch) * cos(radYaw);
-		float dirY = sin(radPitch);
-		float dirZ = cos(radPitch) * sin(radYaw);
-
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
-		glTranslatef(MovX * dirX,MovY * dirY,MovZ * dirZ);
+
 		glRotatef(-pitch, 1.0f, 0.0f, 0.0f); // pitch
 		glRotatef(-yaw, 0.0f, 1.0f, 0.0f); // yaw
+		glTranslatef(MovX, MovY, MovZ);
 //World gen//
 		
 		int width;
