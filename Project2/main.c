@@ -25,16 +25,16 @@ int main(int argc, char* argv[])
 
 	if (!window)
 		return 1;
-	/////////////////////
-	//MY CODE jigga!!!!//
-	/////////////////////
 	SDL_GLContext glCONTEXT = SDL_GL_CreateContext(window);
 
 	if (!glCONTEXT)
 		return 1;
 
+	SDL_SetRelativeMouseMode(SDL_TRUE);
+
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
+	//glEnable(GL_LIGHTING);
 	glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 
 	int running = 1;
@@ -47,14 +47,12 @@ int main(int argc, char* argv[])
 			if (event.type == SDL_QUIT)
 				running = 0;
 
-			if (event.type == SDL_KEYDOWN)
+			if (event.type == SDL_MOUSEMOTION)
 			{
 				switch (event.key.keysym.sym) {
 				case SDLK_UP:
-					printf("Up arrow pressed|%f\n",dirX);
-					if (radYaw < 89){
-						yaw += 1;
-					}
+					printf("Up arrow pressed\n");
+					yaw += 1;
 					break;
 				case SDLK_DOWN:
 					printf("Down arrow pressed\n");
@@ -87,6 +85,7 @@ int main(int argc, char* argv[])
 		glTranslatef(0.0, 0.0, 0.0);
 		glRotatef(pitch, dirX, 0.0, 0.0); // pitch
 		glRotatef(yaw, dirX, 0.0, 0.0); // yaw
+		glBegin(GL_QUADS);
 
 		renderBlock();
 
