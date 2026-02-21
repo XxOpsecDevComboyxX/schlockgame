@@ -79,8 +79,8 @@ int main(int argc, char* argv[])
 		//Where we render myfaef
 		glLoadIdentity();
 		glTranslatef(0.0, 0.0, 0.0);
-		glRotatef(pitch, dirX, dirY, dirZ); // pitch
-		glRotatef(yaw, dirX, dirY, dirZ); // yaw
+		glRotatef(pitch, dirX, 0.0, 0.0); // pitch
+		glRotatef(yaw, dirX, 0.0, 0.0); // yaw
 		glBegin(GL_QUADS);
 
 		glColor3f(1.0f, 0.0f, 0.0f);
