@@ -7,11 +7,6 @@
 #include "Block.h"
 int main(int argc, char* argv[])
 {
-	float yaw = 0.0;
-	float pitch = 0.0;
-	float radYaw = 0.0;
-	float radPitch = 0.0;
-	float dirX = 0.0;
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
 		return 1;
 
@@ -47,13 +42,36 @@ int main(int argc, char* argv[])
 	int running = 1;
 	SDL_Event event;
 
+	
+	float yaw = 0.0;
+	float pitch = 0.0;
+	float radYaw = 0.0;
+	float radPitch = 0.0;
+	float dirX = 0.0;
+	
 	while (running)
 	{
 		while (SDL_PollEvent(&event))
 		{
 			if (event.type == SDL_QUIT)
 				running = 0;
-
+//camera movement
+			switch (event.key.keysym.sym) {
+			case SDLK_w:
+				printf("Up arrow pressed\n");
+				break;
+			case SDLK_s:
+				printf("Down arrow pressed\n");
+				break;
+			case SDLK_a:
+				printf("Left arrow pressed\n");
+				break;
+			case SDLK_d:
+				printf("Right arrow pressed\n");
+				break;
+			default:
+				break;
+			}
 			if (event.type == SDL_MOUSEMOTION)
 			{
 
@@ -76,9 +94,12 @@ int main(int argc, char* argv[])
 		glTranslatef(0.0, 0.0, -25.0);
 		glRotatef(-pitch, 1.0f, 0.0f, 0.0f); // pitch
 		glRotatef(-yaw, 0.0f, 1.0f, 0.0f); // yaw
+		//World gen//
+		
 		int width;
 		int length;
 		int height;
+		
 		float X = 0;
 		for (width = 0; width <= 10; width++) {
 			for (length = 0; length <= 10; length++) {
