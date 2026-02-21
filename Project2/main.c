@@ -56,7 +56,7 @@ int main(int argc, char* argv[])
 	float dirZ = 0.0;
 	float rightX = 0.0;
 	float rightZ = 0.0;
-
+	float Gravity = 0.0f;
 	while (running)
 	{
 		while (SDL_PollEvent(&event))
@@ -115,10 +115,13 @@ int main(int argc, char* argv[])
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
 
+		//physics//
+		Gravity = Gravity + 0.000004;
 		glRotatef(pitch, 1.0f, 0.0f, 0.0f); // pitch
 		glRotatef(yaw, 0.0f, 1.0f, 0.0f); // yaw
-		glTranslatef(MovX, MovY, MovZ);
-//World gen//
+		glTranslatef(MovX, MovY = MovY + Gravity, MovZ);
+		
+		//World gen//
 		
 		int width;
 		int length;
