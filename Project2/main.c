@@ -156,6 +156,7 @@ int main(int argc, char* argv[])
 
 		initBlockTextures();
 		renderChunk();
+		cleanupBlockTextures();
 
 		vec3 blockPos = returnBlockPositions(999);
 

@@ -27,6 +27,11 @@ void initBlockTextures() {
 	grassTopTex = loadTexture("grass_top.png");
 }
 
+void cleanupBlockTextures() {
+    glDeleteTextures(1, &grassTex);
+    glDeleteTextures(1, &grassTopTex);
+}
+
 void renderBlock(float x, float y, float z) {
 	glBindTexture(GL_TEXTURE_2D, grassTex);
 	glPushMatrix();
