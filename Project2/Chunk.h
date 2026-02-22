@@ -8,4 +8,4 @@ extern vec3 blockPos[999];
 
 void renderChunk();
 vec3 returnBlockPositions(int Block);
-int randomNoise();
+int RandomNoise();

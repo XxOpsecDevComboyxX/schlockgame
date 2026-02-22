@@ -157,7 +157,6 @@ int main(int argc, char* argv[])
 			MovZ = -blockPos.z;
 			set = true;
 		}
-		randomNoise();
 
 		SDL_GL_SwapWindow(window);
 

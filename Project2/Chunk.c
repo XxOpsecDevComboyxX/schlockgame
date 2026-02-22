@@ -22,8 +22,25 @@ void renderChunk() {
 	}
 }
 
+int RandomNoise() {
+	float x = 0;
+	float y = 0;
+	float z = 0;
+	int x_wrap = 0;
+	int y_wrap = 0;
+	int z_wrap = 0;
+	int	seed = 0;
+	
+	stb_perlin_noise3_seed(
+		x,
+		y,
+		z,
+		x_wrap,
+		y_wrap,
+		z_wrap,
+		seed);
+}
 
 vec3 returnBlockPositions(int Block) {
 	return blockPos[Block];
 }
-float value = stb_perlin_noise3(1.3f, 5.7f, 2.1f, 0, 0, 0);
