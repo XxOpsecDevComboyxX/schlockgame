@@ -64,7 +64,15 @@ int main(int argc, char* argv[])
 	float Acceleration = 0.0f;
 	float RelGravity = 0.0f;
 
+	const GLubyte* version = glGetString(GL_VERSION);
+	const GLubyte* vendor = glGetString(GL_VENDOR);
+	const GLubyte* renderer = glGetString(GL_RENDERER);
+
 	bool set = false;
+
+	printf("OpenGL Version: %s\n", version);
+	printf("OpenGL Vendor: %s\n", vendor);
+	printf("OpenGL Renderer: %s\n", renderer);
 
 	while (running)
 	{
@@ -133,8 +141,8 @@ int main(int argc, char* argv[])
 		glRotatef(yaw, 0.0f, 1.0f, 0.0f); // yaw
 		glTranslatef(MovX, MovY, MovZ);
 
-		for (int i = 0; i < 999; i++) {
-			if (checkCollision(returnBlockPositions(i), (vec3){MovX, MovY + 0.5f, MovZ})) {
+		for (int i = 0; i < 1000; i++) {
+			if (checkCollision(returnBlockPositions(i), (vec3){MovX, MovY + 2.0f, MovZ})) {
 				MovY -= 0.005f;
 				RelGravity = 0.0f;
 				Velocity = 0.0f;
@@ -146,7 +154,7 @@ int main(int argc, char* argv[])
 		//checkCollision(returnBlockPositions(999), (vec3){MovX, MovY, MovZ});
 		//World gen and Render//
 
-		initBlockTexture();
+		initBlockTextures();
 		renderChunk();
 
 		vec3 blockPos = returnBlockPositions(999);
