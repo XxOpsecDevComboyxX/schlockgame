@@ -8,7 +8,7 @@
 #include "Chunk.h"
 #include "Collision.h"
 #include <stdbool.h>
-#include <stdlib.h>
+#include "stb_image.h"
 
 int main(int argc, char* argv[])
 {
@@ -132,22 +132,24 @@ int main(int argc, char* argv[])
 		glRotatef(pitch, 1.0f, 0.0f, 0.0f); // pitch
 		glRotatef(yaw, 0.0f, 1.0f, 0.0f); // yaw
 		glTranslatef(MovX, MovY, MovZ);
-		
-			for (int i = 0; i < 999; i++) {
-				if (checkCollision(returnBlockPositions(i), (vec3) { MovX, MovY + 0.5, MovZ })) {
-					RelGravity = 0.0f;
-					Velocity = 0.0f;
-					Acceleration = 0.0f;
-					MovY -= 0.05f;
-				}
+
+		for (int i = 0; i < 999; i++) {
+			if (checkCollision(returnBlockPositions(i), (vec3){MovX, MovY + 0.5f, MovZ})) {
+				MovY -= 0.005f;
+				RelGravity = 0.0f;
+				Velocity = 0.0f;
+				Acceleration = 0.0f;
+				break;
 			}
+		}
 
-		//World gen//
+		//checkCollision(returnBlockPositions(999), (vec3){MovX, MovY, MovZ});
+		//World gen and Render//
 
+		initBlockTexture();
 		renderChunk();
 
 		vec3 blockPos = returnBlockPositions(999);
-
 
 		if (set == false) {
 			MovX = -blockPos.x;
