@@ -131,8 +131,7 @@ int main(int argc, char* argv[])
 		glRotatef(yaw, 0.0f, 1.0f, 0.0f); // yaw
 		glTranslatef(MovX, MovY, MovZ);
 		
-		int x = 0;
-		for (x < 10, checkCollision(returnBlockPositions(999), (vec3) { MovX, MovY + 1, MovZ }), ++x);
+		
 		
 		//World gen//
 
