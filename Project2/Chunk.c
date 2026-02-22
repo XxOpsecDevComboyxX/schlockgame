@@ -6,7 +6,7 @@ int width;
 int length;
 int height;
 
-vec3 blockPos[1111];
+vec3 blockPos[999];
 
 void renderChunk() {
 	for (width = 0; width < 10; width++) {
