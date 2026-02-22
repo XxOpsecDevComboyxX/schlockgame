@@ -176,7 +176,6 @@ int main(int argc, char* argv[])
 		
 		//perlin noise test
 		SDL_GL_SwapWindow(window);
-		stb;
 	}
 	SDL_GL_DeleteContext(glCONTEXT);
 	SDL_DestroyWindow(window);
