@@ -37,7 +37,6 @@ int main(int argc, char* argv[])
 	gluPerspective(45.0, 640.0 / 480.0, 0.1, 100.0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_TEXTURE_2D);
