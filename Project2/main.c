@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <math.h>
 #include "Block.h"
-
+#include "Chunk.h"
 int main(int argc, char* argv[])
 {
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
@@ -119,23 +119,10 @@ int main(int argc, char* argv[])
 		Gravity = Gravity + 0.000004;
 		glRotatef(pitch, 1.0f, 0.0f, 0.0f); // pitch
 		glRotatef(yaw, 0.0f, 1.0f, 0.0f); // yaw
-		glTranslatef(MovX, MovY = MovY + Gravity, MovZ);
-		
+		glTranslatef(MovX, MovY, MovZ);
 		//World gen//
-		
-		int width;
-		int length;
-		int height;
-		
-		float X = 0;
-		for (width = 0; width <= 10; width++) {
-			for (length = 0; length <= 10; length++) {
-				for (height = 0; height <= 10; height++) {
-					renderBlock(2.0f * width, 2.0f * height, 2.0f * length);
-				}
-			}
-			
-		}
+
+		renderChunk();
 
 		SDL_GL_SwapWindow(window);
 
