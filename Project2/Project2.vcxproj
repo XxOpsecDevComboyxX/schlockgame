@@ -128,12 +128,13 @@
   <ItemGroup>
     <ClCompile Include="Block.c" />
     <ClCompile Include="Chunk.c" />
+    <ClCompile Include="Collision.c" />
     <ClCompile Include="main.c" />
-    <ClCompile Include="Stack.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.h" />
     <ClInclude Include="Chunk.h" />
+    <ClInclude Include="Collision.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
