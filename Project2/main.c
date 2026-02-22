@@ -6,6 +6,7 @@
 #include <math.h>
 #include "Block.h"
 #include "Chunk.h"
+
 int main(int argc, char* argv[])
 {
 	if (SDL_Init(SDL_INIT_VIDEO) != 0)
@@ -37,8 +38,9 @@ int main(int argc, char* argv[])
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
-//glEnable(GL_LIGHTING);
-	glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
+	glEnable(GL_TEXTURE_2D);
+	//glEnable(GL_LIGHTING);
+	glClearColor(0.0f, 0.5f, 0.7f, 1.0f);
 
 	int running = 1;
 	SDL_Event event;
@@ -63,7 +65,7 @@ int main(int argc, char* argv[])
 		{
 			if (event.type == SDL_QUIT)
 				running = 0;
-//camera movement
+			//camera movement
 
 			if (event.type == SDL_KEYDOWN)
 			switch (event.key.keysym.sym) {
@@ -91,7 +93,7 @@ int main(int argc, char* argv[])
 			default:
 				break;
 			}
-//camera rotation
+			//camera rotation
 
 			if (event.type == SDL_MOUSEMOTION)
 			{
@@ -122,6 +124,10 @@ int main(int argc, char* argv[])
 		//World gen//
 
 		renderChunk();
+
+		vec3 blockPos = returnBlockPositions(999);
+
+		printf("Block : %f", blockPos.x);
 
 		SDL_GL_SwapWindow(window);
 
