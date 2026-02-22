@@ -42,5 +42,6 @@ void cleanupBlockTextures() {
     for (int i = 0; i < BLOCK_COUNT; i++) {
         Block* block = getBlockType(i);
         glDeleteTextures(1, &block->textureID);
+        glDeleteTextures(1, &block->topTextureID);
     }
 }
