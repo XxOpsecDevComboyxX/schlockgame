@@ -9,6 +9,7 @@
 #include "Collision.h"
 #include <stdbool.h>
 #include "stb_image.h"
+#include "Blocks.h"
 
 int main(int argc, char* argv[])
 {

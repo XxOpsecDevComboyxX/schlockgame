@@ -1,39 +1,10 @@
 #include "Block.h"
 #include <windows.h>
 #include <gl\GL.h>
+#include "Blocks.h"
 
-GLuint grassTex;
-GLuint grassTopTex;
-
-GLuint loadTexture(const char* filename) {
-    int width, height, channels;
-    stbi_set_flip_vertically_on_load(1);
-    unsigned char* image = stbi_load(filename, &width, &height, &channels, 0);
-    if (!image) {
-        return 0;
-    }
-    GLuint textureID;
-    glGenTextures(1, &textureID);
-    glBindTexture(GL_TEXTURE_2D, textureID);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    stbi_image_free(image);
-    return textureID;
-}
-
-void initBlockTextures() {
-	grassTex = loadTexture("grass_side.png");
-	grassTopTex = loadTexture("grass_top.png");
-}
-
-void cleanupBlockTextures() {
-    glDeleteTextures(1, &grassTex);
-    glDeleteTextures(1, &grassTopTex);
-}
-
-void renderBlock(float x, float y, float z) {
-	glBindTexture(GL_TEXTURE_2D, grassTex);
+void renderBlock(float x, float y, float z, Block* block) {
+    glBindTexture(GL_TEXTURE_2D, block->textureID);
 	glPushMatrix();
 	glTranslatef(x, y, z);
 	glBegin(GL_QUADS);
@@ -83,7 +54,7 @@ void renderBlock(float x, float y, float z) {
     glVertex3f(1, 1, 1);
     glEnd();
 
-    glBindTexture(GL_TEXTURE_2D, grassTopTex);
+    glBindTexture(GL_TEXTURE_2D, block->topTextureID);
 	glBegin(GL_QUADS);
 	//Top side
     glColor3f(1.0f, 1.0f, 1.0f);

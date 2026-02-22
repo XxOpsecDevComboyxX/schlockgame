@@ -2,6 +2,7 @@
 #include "Block.h"
 #include <stdio.h>
 #include "stb_perlin.h"
+#include "Blocks.h"
 
 int width;
 int length;
@@ -19,7 +20,7 @@ void renderChunk() {
 				float i = noise * heightmulti;
 				int r = (int)i;
 				float yPos = 2.0f * height + r *2;
-				renderBlock(2.0f * width, yPos, 2.0f * length);
+				renderBlock(2.0f * width, yPos, 2.0f * length, getBlockType(BLOCK_GRASS));
 				blockPos[index].x = 2.0f * width;
 				blockPos[index].y = yPos;
 				blockPos[index].z = 2.0f * length;
@@ -28,7 +29,6 @@ void renderChunk() {
 
 	}
 }
-
 
 vec3 returnBlockPositions(int Block) {
 	return blockPos[Block];
