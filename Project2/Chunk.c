@@ -1,11 +1,10 @@
 #include "Chunk.h"
 #include "Block.h"
 #include <stdio.h>
-#include <stdlib.h>
+#include "stb_perlin.h"
 int width;
 int length;
 int height;
-
 vec3 blockPos[999];
 
 void renderChunk() {
@@ -23,6 +22,8 @@ void renderChunk() {
 	}
 }
 
+
 vec3 returnBlockPositions(int Block) {
 	return blockPos[Block];
 }
+float value = stb_perlin_noise3(1.3f, 5.7f, 2.1f, 0, 0, 0);
