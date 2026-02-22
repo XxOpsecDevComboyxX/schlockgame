@@ -1,7 +1,7 @@
 #include "Chunk.h"
 #include "Block.h"
 #include <stdio.h>
-
+#include <stdlib.h>
 int width;
 int length;
 int height;

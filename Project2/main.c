@@ -8,6 +8,7 @@
 #include "Chunk.h"
 #include "Collision.h"
 #include <stdbool.h>
+#include <stdlib.h>
 
 int main(int argc, char* argv[])
 {
@@ -132,8 +133,15 @@ int main(int argc, char* argv[])
 		glRotatef(yaw, 0.0f, 1.0f, 0.0f); // yaw
 		glTranslatef(MovX, MovY, MovZ);
 		
-		
-		
+			for (int i = 0; i < 999; i++) {
+				if (checkCollision(returnBlockPositions(i), (vec3) { MovX, MovY + 0.5, MovZ })) {
+					RelGravity = 0.0f;
+					Velocity = 0.0f;
+					Acceleration = 0.0f;
+					MovY -= 0.05f;
+				}
+			}
+
 		//World gen//
 
 		renderChunk();
@@ -147,8 +155,7 @@ int main(int argc, char* argv[])
 			MovZ = -blockPos.z;
 			set = true;
 		}
-
-		//printf("|Block x: %f | Block y: %f | Block z: %f", blockPos.x, blockPos.y, blockPos.z);
+		randomNoise();
 
 		SDL_GL_SwapWindow(window);
 
