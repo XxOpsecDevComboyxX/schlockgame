@@ -14,28 +14,28 @@ void renderBlock(float x, float y, float z) {
     glVertex3f(1, 1, 1);
     glVertex3f(-1, 1, 1);
 
-    //Blue side
+    //Green side
     glColor3f(0.0f, 1.0f, 0.0f);
     glVertex3f(-1, -1, -1);
     glVertex3f(-1, 1, -1);
     glVertex3f(1, 1, -1);
     glVertex3f(1, -1, -1);
 
-    //Green side
+    //Blue side
     glColor3f(0.0f, 0.0f, 1.0f);
     glVertex3f(-1, -1, -1);
     glVertex3f(-1, -1, 1);
     glVertex3f(-1, 1, 1);
     glVertex3f(-1, 1, -1);
 
-    //Yellow side
+    //Magenta side
     glColor3f(1.0f, 0.0f, 1.0f);
     glVertex3f(1, -1, -1);
     glVertex3f(1, 1, -1);
     glVertex3f(1, 1, 1);
     glVertex3f(1, -1, 1);
 
-    //Magenta side
+    //Yellow side
     glColor3f(1.0f, 1.0f, 0.0f);
     glVertex3f(-1, 1, -1);
     glVertex3f(-1, 1, 1);

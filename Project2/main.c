@@ -59,7 +59,8 @@ int main(int argc, char* argv[])
 	float rightX = 0.0;
 	float rightZ = 0.0;
 	float Velocity = 1.0f;
-	double Acceleration = 0.0f;
+	float Acceleration = 0.0f;
+	float RelGravity = 0.0f;
 	while (running)
 	{
 		while (SDL_PollEvent(&event))
@@ -74,7 +75,7 @@ int main(int argc, char* argv[])
 				MovX -= dirX;
 				MovZ -= dirZ;
 				MovY += dirY;
-				printf("%f\n", MovZ);
+				printf("%f\n", RelGravity);
 				break;
 			case SDLK_s:
 				MovX += dirX;
@@ -120,18 +121,19 @@ int main(int argc, char* argv[])
 
 		//physics//
 		
+		RelGravity = Velocity + MovY;
 		Velocity = Velocity + Acceleration;
 			Acceleration = Acceleration + 0.00001;
 		glRotatef(pitch, 1.0f, 0.0f, 0.0f); // pitch
 		glRotatef(yaw, 0.0f, 1.0f, 0.0f); // yaw
-		glTranslatef(MovX, MovY + Velocity, MovZ);
+		glTranslatef(MovX, RelGravity, MovZ);
 		//World gen//
 
 		renderChunk();
 
 		vec3 blockPos = returnBlockPositions(999);
 
-		printf("Block : %f", blockPos.x);
+		//printf("Block : %f", blockPos.x);
 
 		SDL_GL_SwapWindow(window);
 
