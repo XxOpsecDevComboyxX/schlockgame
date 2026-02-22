@@ -62,7 +62,6 @@ int main(int argc, char* argv[])
 	float Velocity = 1.0f;
 	float Acceleration = 0.0f;
 	float RelGravity = 0.0f;
-	double Acceleration = 0.0f;
 
 	bool set = false;
 
@@ -133,7 +132,16 @@ int main(int argc, char* argv[])
 		glRotatef(yaw, 0.0f, 1.0f, 0.0f); // yaw
 		glTranslatef(MovX, MovY, MovZ);
 
-		checkCollision(returnBlockPositions(999), (vec3){MovX, MovY, MovZ});
+		for (int i = 0; i < 999; i++) {
+			if (checkCollision(returnBlockPositions(i), (vec3){MovX, MovY + 0.5, MovZ})) {
+				RelGravity = 0.0f;
+				Velocity = 0.0f;
+				Acceleration = 0.0f;
+				MovY -= 0.05f;
+			}
+		}
+
+		//checkCollision(returnBlockPositions(999), (vec3){MovX, MovY, MovZ});
 		//World gen//
 
 		renderChunk();
@@ -143,7 +151,7 @@ int main(int argc, char* argv[])
 
 		if (set == false) {
 			MovX = -blockPos.x;
-			MovY = -blockPos.y;
+			MovY = -blockPos.y - 2;
 			MovZ = -blockPos.z;
 			set = true;
 		}
