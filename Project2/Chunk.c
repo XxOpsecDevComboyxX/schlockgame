@@ -11,12 +11,14 @@ vec3 blockPos[999];
 void renderChunk() {
 	for (width = 0; width < 10; width++) {
 		for (length = 0; length < 10; length++) {
-			for (height = 0; height < 10; height++) {
+			for (height = 0; height < 3; height++) {
 				int index = width * 100 + length * 10 + height;
 
-				float noise = stb_perlin_noise3(width * 0.1f, length * 0.1f, height * 0.1f, 0, 0, 0);
-
-				float yPos = 2.0f * height + noise * 5.0f;
+				int heightmulti = 15;
+				float noise = stb_perlin_noise3(width * 0.1, length * 0.1, 0.1, 0, 0, 0);
+				float i = noise * heightmulti;
+				int r = (int)i;
+				float yPos = 2.0f * height + r *2;
 				renderBlock(2.0f * width, yPos, 2.0f * length);
 				blockPos[index].x = 2.0f * width;
 				blockPos[index].y = yPos;
@@ -27,24 +29,6 @@ void renderChunk() {
 	}
 }
 
-int RandomNoise() {
-	float x = 1;
-	float y = 1;
-	float z = 1;
-	int x_wrap = 0;
-	int y_wrap = 0;
-	int z_wrap = 0;
-	int	seed = 12345678;
-	
-	stb_perlin_noise3_seed(
-		x,
-		y,
-		z,
-		x_wrap,
-		y_wrap,
-		z_wrap,
-		seed);
-}
 
 vec3 returnBlockPositions(int Block) {
 	return blockPos[Block];
