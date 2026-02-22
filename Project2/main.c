@@ -6,6 +6,8 @@
 #include <math.h>
 #include "Block.h"
 #include "Chunk.h"
+#include "Collision.h"
+#include <stdbool.h>
 
 int main(int argc, char* argv[])
 {
@@ -44,7 +46,6 @@ int main(int argc, char* argv[])
 
 	int running = 1;
 	SDL_Event event;
-
 	
 	float yaw = 0.0;
 	float pitch = 0.0;
@@ -61,6 +62,10 @@ int main(int argc, char* argv[])
 	float Velocity = 1.0f;
 	float Acceleration = 0.0f;
 	float RelGravity = 0.0f;
+	double Acceleration = 0.0f;
+
+	bool set = false;
+
 	while (running)
 	{
 		while (SDL_PollEvent(&event))
@@ -126,14 +131,24 @@ int main(int argc, char* argv[])
 			Acceleration = Acceleration + 0.00001;
 		glRotatef(pitch, 1.0f, 0.0f, 0.0f); // pitch
 		glRotatef(yaw, 0.0f, 1.0f, 0.0f); // yaw
-		glTranslatef(MovX, RelGravity, MovZ);
+		glTranslatef(MovX, MovY, MovZ);
+
+		checkCollision(returnBlockPositions(999), (vec3){MovX, MovY, MovZ});
 		//World gen//
 
 		renderChunk();
 
 		vec3 blockPos = returnBlockPositions(999);
 
-		//printf("Block : %f", blockPos.x);
+
+		if (set == false) {
+			MovX = -blockPos.x;
+			MovY = -blockPos.y;
+			MovZ = -blockPos.z;
+			set = true;
+		}
+
+		//printf("|Block x: %f | Block y: %f | Block z: %f", blockPos.x, blockPos.y, blockPos.z);
 
 		SDL_GL_SwapWindow(window);
 

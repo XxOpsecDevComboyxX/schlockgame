@@ -24,13 +24,5 @@ void renderChunk() {
 }
 
 vec3 returnBlockPositions(int Block) {
-	for (width = 0; width < 10; width++) {
-		for (length = 0; length < 10; length++) {
-			for (height = 0; height < 10; height++) {
-				if (Block == width * 100 + length * 10 + height) {
-					return blockPos[Block];
-				}
-			}
-		}
-	}
+	return blockPos[Block];
 }
