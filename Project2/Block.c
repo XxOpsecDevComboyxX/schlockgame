@@ -99,6 +99,5 @@ void renderBlock(float x, float y, float z) {
     glVertex3f(-1, -1, 1);
 	
     glEnd();
-
-	glPopMatrix();
+    glPopMatrix();
 }
