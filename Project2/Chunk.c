@@ -23,13 +23,13 @@ void renderChunk() {
 }
 
 int RandomNoise() {
-	float x = 0;
-	float y = 0;
-	float z = 0;
+	float x = 1;
+	float y = 1;
+	float z = 1;
 	int x_wrap = 0;
 	int y_wrap = 0;
 	int z_wrap = 0;
-	int	seed = 0;
+	int	seed = 12345678;
 	
 	stb_perlin_noise3_seed(
 		x,

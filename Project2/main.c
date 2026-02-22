@@ -63,6 +63,13 @@ int main(int argc, char* argv[])
 	float Velocity = 1.0f;
 	float Acceleration = 0.0f;
 	float RelGravity = 0.0f;
+	float x = 0;
+	float y = 0;
+	float z = 0;
+	int x_wrap = 0;
+	int y_wrap = 0;
+	int z_wrap = 0;
+	int	seed = 0;
 
 	const GLubyte* version = glGetString(GL_VERSION);
 	const GLubyte* vendor = glGetString(GL_VENDOR);
@@ -166,9 +173,10 @@ int main(int argc, char* argv[])
 			MovZ = -blockPos.z;
 			set = true;
 		}
-
+		
+		//perlin noise test
 		SDL_GL_SwapWindow(window);
-
+		stb;
 	}
 	SDL_GL_DeleteContext(glCONTEXT);
 	SDL_DestroyWindow(window);
