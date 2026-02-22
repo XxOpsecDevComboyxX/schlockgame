@@ -56,7 +56,8 @@ int main(int argc, char* argv[])
 	float dirZ = 0.0;
 	float rightX = 0.0;
 	float rightZ = 0.0;
-	float Gravity = 0.0f;
+	float Velocity = 1.0f;
+	double Acceleration = 0.0f;
 	while (running)
 	{
 		while (SDL_PollEvent(&event))
@@ -116,10 +117,12 @@ int main(int argc, char* argv[])
 		glLoadIdentity();
 
 		//physics//
-		Gravity = Gravity + 0.000004;
+		
+		Velocity = Velocity + Acceleration;
+			Acceleration = Acceleration + 0.00001;
 		glRotatef(pitch, 1.0f, 0.0f, 0.0f); // pitch
 		glRotatef(yaw, 0.0f, 1.0f, 0.0f); // yaw
-		glTranslatef(MovX, MovY, MovZ);
+		glTranslatef(MovX, MovY + Velocity, MovZ);
 		//World gen//
 
 		renderChunk();

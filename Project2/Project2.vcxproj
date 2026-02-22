@@ -129,6 +129,7 @@
     <ClCompile Include="Block.c" />
     <ClCompile Include="Chunk.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="Stack.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.h" />
