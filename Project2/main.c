@@ -62,7 +62,6 @@ int main(int argc, char* argv[])
 	float Velocity = 1.0f;
 	float Acceleration = 0.0f;
 	float RelGravity = 0.0f;
-	double Acceleration = 0.0f;
 
 	bool set = false;
 
@@ -132,8 +131,9 @@ int main(int argc, char* argv[])
 		glRotatef(pitch, 1.0f, 0.0f, 0.0f); // pitch
 		glRotatef(yaw, 0.0f, 1.0f, 0.0f); // yaw
 		glTranslatef(MovX, MovY, MovZ);
-
-		checkCollision(returnBlockPositions(999), (vec3){MovX, MovY, MovZ});
+		int x = 0;
+		int y = 1;
+		checkCollision(returnBlockPositions(999), (vec3) { MovX, MovY + 1, MovZ});
 		//World gen//
 
 		renderChunk();

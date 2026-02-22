@@ -22,6 +22,10 @@ void renderChunk() {
 
 	}
 }
+vec3 ReturnBlockIndex(float blockX,float blockY,float blockZ) {
+	
+}
+
 
 vec3 returnBlockPositions(int Block) {
 	return blockPos[Block];
