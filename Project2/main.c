@@ -48,6 +48,8 @@ int main(int argc, char* argv[])
 
 	int running = 1;
 	SDL_Event event;
+
+	Uint32 lastTime = SDL_GetTicks();
 	
 	float yaw = 0.0;
 	float pitch = 0.0;
@@ -72,6 +74,10 @@ int main(int argc, char* argv[])
 	int z_wrap = 0;
 	int	seed = 0;
 
+	float dt = 0;
+
+	float moveSpeed = 50.0f;
+
 	const GLubyte* version = glGetString(GL_VERSION);
 	const GLubyte* vendor = glGetString(GL_VENDOR);
 	const GLubyte* renderer = glGetString(GL_RENDERER);
@@ -84,38 +90,40 @@ int main(int argc, char* argv[])
 
 	while (running)
 	{
+		dt = (SDL_GetTicks() - lastTime) / 1000.0f;
+		lastTime = SDL_GetTicks();
+
+		printf("Delta Time: %f seconds\n", dt);
+
+		const Uint8* keystate = SDL_GetKeyboardState(NULL);
+
+		if (keystate[SDL_SCANCODE_W]) {
+			MovX -= dirX * moveSpeed * dt;
+			MovZ -= dirZ * moveSpeed * dt;
+			MovY += dirY * moveSpeed * dt;
+		}
+
+		if (keystate[SDL_SCANCODE_S]) {
+			MovX += dirX * moveSpeed * dt;
+			MovZ += dirZ * moveSpeed * dt;
+			MovY -= dirY * moveSpeed * dt;
+		}
+
+		if (keystate[SDL_SCANCODE_D]) {
+			MovX -= rightX * moveSpeed * dt;
+			MovZ -= rightZ * moveSpeed * dt;
+		}
+
+		if (keystate[SDL_SCANCODE_A]) {
+			MovX += rightX * moveSpeed * dt;
+			MovZ += rightZ * moveSpeed * dt;
+			printf("%f\n", MovX);
+		}
+
 		while (SDL_PollEvent(&event))
 		{
 			if (event.type == SDL_QUIT)
 				running = 0;
-			//camera movement
-
-			if (event.type == SDL_KEYDOWN)
-			switch (event.key.keysym.sym) {
-			case SDLK_w:
-				MovX -= dirX;
-				MovZ -= dirZ;
-				MovY += dirY;
-				printf("%f\n", RelGravity);
-				break;
-			case SDLK_s:
-				MovX += dirX;
-				MovZ += dirZ;
-				MovY -= dirY;
-				printf("%f\n", MovZ);
-				break;
-			case SDLK_a:
-				MovX += rightX;
-				MovZ += rightZ;
-				printf("%f\n", MovX);
-				break;
-			case SDLK_d:
-				MovX -= rightX;
-				MovZ -= rightZ;
-				printf("%f\n", MovX);
-			default:
-				break;
-			}
 			//camera rotation
 
 			if (event.type == SDL_MOUSEMOTION)
@@ -144,14 +152,14 @@ int main(int argc, char* argv[])
 		
 		RelGravity = Velocity + MovY;
 		Velocity = Velocity + Acceleration;
-			Acceleration = Acceleration + 0.00001;
+		Acceleration = Acceleration + 0.00001;
 		glRotatef(pitch, 1.0f, 0.0f, 0.0f); // pitch
 		glRotatef(yaw, 0.0f, 1.0f, 0.0f); // yaw
-		glTranslatef(MovX, MovY, MovZ);
 
 		for (int i = 0; i < 1000; i++) {
-			if (checkCollision(returnBlockPositions(i), (vec3){MovX, MovY + 2.0f, MovZ})) {
-				MovY -= 0.005f;
+			if (checkCollision(returnBlockData(i), (vec3){MovX, MovY + 2.0f, MovZ})) {
+				vec3 blockPos = returnBlockData(i);
+				MovY = blockPos.y;
 				RelGravity = 0.0f;
 				Velocity = 0.0f;
 				Acceleration = 0.0f;
@@ -159,14 +167,15 @@ int main(int argc, char* argv[])
 			}
 		}
 
-		//checkCollision(returnBlockPositions(999), (vec3){MovX, MovY, MovZ});
+		glTranslatef(MovX, MovY, MovZ);
+
 		//World gen and Render//
 
 		initBlockTextures();
 		renderChunk();
 		cleanupBlockTextures();
 
-		vec3 blockPos = returnBlockPositions(999);
+		vec3 blockPos = returnBlockData(1);
 
 		if (set == false) {
 			MovX = -blockPos.x;
