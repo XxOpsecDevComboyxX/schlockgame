@@ -1,4 +1,8 @@
+#ifdef _WIN32
 #include <windows.h>
+#elif defined(__linux__)
+#include <unistd.h>
+#endif
 #include <gl\GL.h>
 #include <gl\GLU.h>
 #include <SDL.h>
@@ -10,6 +14,7 @@
 #include <stdbool.h>
 #include "stb_image.h"
 #include "Blocks.h"
+#include "vec3.h"
 
 int main(int argc, char* argv[])
 {
@@ -124,8 +129,8 @@ int main(int argc, char* argv[])
 		{
 			if (event.type == SDL_QUIT)
 				running = 0;
-			//camera rotation
 
+			//camera rotation
 			if (event.type == SDL_MOUSEMOTION)
 			{
 
@@ -157,9 +162,9 @@ int main(int argc, char* argv[])
 		glRotatef(yaw, 0.0f, 1.0f, 0.0f); // yaw
 
 		for (int i = 0; i < 1000; i++) {
-			if (checkCollision(returnBlockData(i), (vec3){MovX, MovY + 2.0f, MovZ})) {
-				vec3 blockPos = returnBlockData(i);
-				MovY = blockPos.y;
+			Vec3Block blockPos = returnBlockData(i);
+			if (checkCollision(blockPos, (vec3){MovX, MovY + 4.0f, MovZ})) {
+				MovY = -blockPos.y - 4.0f;
 				RelGravity = 0.0f;
 				Velocity = 0.0f;
 				Acceleration = 0.0f;
@@ -175,7 +180,7 @@ int main(int argc, char* argv[])
 		renderChunk();
 		cleanupBlockTextures();
 
-		vec3 blockPos = returnBlockData(1);
+		Vec3Block blockPos = returnBlockData(1);
 
 		if (set == false) {
 			MovX = -blockPos.x;

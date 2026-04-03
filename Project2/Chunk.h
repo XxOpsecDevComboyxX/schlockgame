@@ -3,10 +3,10 @@
 
 typedef struct {
 	float x, y, z;
-	//BlockType type;
-} vec3;
+	BlockType type;
+} Vec3Block;
 
-extern vec3 blockPos[999];
+extern Vec3Block blockPos[9999];
 
 void renderChunk();
-vec3 returnBlockData(int Block);
+Vec3Block returnBlockData(int Block);
