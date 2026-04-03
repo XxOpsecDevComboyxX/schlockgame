@@ -1,5 +1,9 @@
 #include "Block.h"
+#ifdef _WIN32
 #include <windows.h>
+#elif defined(__linux__)
+#include <unistd.h>
+#endif
 #include <gl\GL.h>
 #include "Blocks.h"
 
