@@ -1,10 +1,11 @@
 #include "Block.h"
 #ifdef _WIN32
 #include <windows.h>
+#include <gl\GL.h>
 #elif defined(__linux__)
 #include <unistd.h>
+#include <gl\gl.h>
 #endif
-#include <gl\GL.h>
 #include "Blocks.h"
 
 void renderBlock(float x, float y, float z, Block* block) {

@@ -2,10 +2,11 @@
 #include <stdint.h>
 #ifdef _WIN32
 #include <windows.h>
+#include <gl\GL.h>
 #elif defined(__linux__)
 #include <unistd.h>
+#include <gl\gl.h>
 #endif
-#include <gl\GL.h>
 
 typedef enum {
 	BLOCK_GRASS,
