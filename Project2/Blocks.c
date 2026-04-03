@@ -1,4 +1,5 @@
 #include "Blocks.h"
+#include "stb_image.h"
 
 static Block blockTypes[BLOCK_COUNT] = {
 	{ BLOCK_GRASS, 1, "grass_side.png", "grass_top.png", 0, 0},
