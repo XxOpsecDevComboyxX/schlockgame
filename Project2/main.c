@@ -1,11 +1,12 @@
 #ifdef _WIN32
 #include <windows.h>
 #include <gl\GL.h>
+#include <gl\GLU.h>
 #elif defined(__linux__)
 #include <unistd.h>
 #include <GL/gl.h>
+#include <GL\glu.h>
 #endif
-#include <gl\GLU.h>
 #include <SDL.h>
 #include <stdio.h>
 #include <math.h>
