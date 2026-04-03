@@ -9,6 +9,8 @@ int length;
 int height;
 Vec3Block blockPos[9999];
 
+int getIndex(double x, double y, double z);
+
 void renderChunk() {
 	for (width = 0; width < 10; width++) {
 		for (length = 0; length < 10; length++) {
