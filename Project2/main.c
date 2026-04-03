@@ -5,7 +5,7 @@
 #elif defined(__linux__)
 #include <unistd.h>
 #include <GL/gl.h>
-#include <GL\glu.h>
+#include <GL/glu.h>
 #endif
 #include <SDL.h>
 #include <stdio.h>
