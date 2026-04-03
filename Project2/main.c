@@ -3,7 +3,7 @@
 #include <gl\GL.h>
 #elif defined(__linux__)
 #include <unistd.h>
-#include <gl\gl.h>
+#include <gl.h>
 #endif
 #include <gl\GLU.h>
 #include <SDL.h>
