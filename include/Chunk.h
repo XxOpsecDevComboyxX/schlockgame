@@ -2,7 +2,7 @@
 #include "Blocks.h"
 
 typedef struct {
-	float x, y, z;
+	int x, y, z;
 	BlockType type;
 } Vec3Block;
 
