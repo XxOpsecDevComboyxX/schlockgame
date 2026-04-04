@@ -1,3 +1,0 @@
-E:/schlockgame/Project2/build/CMakeFiles/Project2.dir
-E:/schlockgame/Project2/build/CMakeFiles/ALL_BUILD.dir
-E:/schlockgame/Project2/build/CMakeFiles/ZERO_CHECK.dir
