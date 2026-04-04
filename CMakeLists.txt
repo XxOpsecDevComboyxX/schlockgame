@@ -15,5 +15,5 @@ target_link_libraries(untitled PRIVATE ${SDL2_PATH}/lib/libSDL2main.a ${SDL2_PAT
 elseif(UNIX AND NOT APPLE)
     find_package(SDL2 REQUIRED)
     target_include_directories(untitled PRIVATE include ${SDL2_INCLUDE_DIRS})
-    target_link_libraries(untitled PRIVATE SDL2::SDL2 SDL2::SDL2main GL)
+    target_link_libraries(untitled PRIVATE SDL2::SDL2 SDL2::SDL2main GL GLU m)
 endif ()
