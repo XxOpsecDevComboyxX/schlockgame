@@ -2,10 +2,11 @@
 #include "stb_image.h"
 
 static Block blockTypes[BLOCK_COUNT] = {
-	{ BLOCK_GRASS, 1, "grass_side.png", "grass_top.png", 0, 0},
-	{ BLOCK_STONE, 1, "stone.png", "stone.png", 0, 0},
-    { BLOCK_DIRT, 1, "dirt.png", "dirt.png", 0, 0},
-    { BLOCK_MISSING, 1, "missing.png", "missing.png", 0, 0},
+	{ BLOCK_GRASS, 1, 0, "grass_side.png", "grass_top.png", 0, 0},
+	{ BLOCK_STONE, 1, 0, "stone.png", "stone.png", 0, 0},
+    { BLOCK_DIRT, 1, 0,"dirt.png", "dirt.png", 0, 0},
+    { BLOCK_MISSING, 1, 0,  "missing.png", "missing.png", 0, 0},
+    { BLOCK_AIR, 0, 1, "", "", 0, 0},
 };
 
 Block* getBlockType(BlockType type) {

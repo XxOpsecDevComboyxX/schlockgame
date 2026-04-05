@@ -13,12 +13,14 @@ typedef enum {
 	BLOCK_STONE,
 	BLOCK_DIRT,
 	BLOCK_MISSING,
+	BLOCK_AIR,
 	BLOCK_COUNT
 } BlockType;
 
 typedef struct {
 	BlockType type;
 	uint8_t isSolid;
+	uint8_t isTransparent;
 	const char* texturePath;
 	const char* topTexturePath;
 	GLuint textureID;

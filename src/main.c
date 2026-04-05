@@ -28,8 +28,8 @@ int main(int argc, char* argv[])
 		"SDL2 Window",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
-		640,
-		480,
+		1280,
+		1024,
 		SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN
 	);
 
@@ -101,7 +101,7 @@ int main(int argc, char* argv[])
 		dt = (SDL_GetTicks() - lastTime) / 1000.0f;
 		lastTime = SDL_GetTicks();
 
-		printf("Delta Time: %f seconds\n", dt);
+		// printf("Delta Time: %f seconds\n", dt);
 
 		const Uint8* keystate = SDL_GetKeyboardState(NULL);
 
@@ -168,16 +168,16 @@ int main(int argc, char* argv[])
 		glRotatef(pitch, 1.0f, 0.0f, 0.0f); // pitch
 		glRotatef(yaw, 0.0f, 1.0f, 0.0f); // yaw
 
-		for (int i = 0; i < 1000; i++) {
-			Vec3Block blockPos = returnBlockData(i);
-			if (checkCollision(blockPos, (vec3){MovX, MovY + 4.0f, MovZ})) {
-				MovY = -blockPos.y - 4.0f;
-				RelGravity = 0.0f;
-				Velocity = 0.0f;
-				Acceleration = 0.0f;
-				break;
-			}
-		}
+		// for (int i = 0; i < 1000; i++) {
+		// 	Vec3Block blockPos = returnBlockData(i);
+		// 	if (checkCollision(blockPos, (vec3){MovX, MovY + 4.0f, MovZ})) {
+		// 		MovY = -blockPos.y - 4.0f;
+		// 		RelGravity = 0.0f;
+		// 		Velocity = 0.0f;
+		// 		Acceleration = 0.0f;
+		// 		break;
+		// 	}
+		// }
 
 		glTranslatef(MovX, MovY, MovZ);
 
@@ -187,7 +187,7 @@ int main(int argc, char* argv[])
 		renderChunk();
 		cleanupBlockTextures();
 
-		Vec3Block blockPos = returnBlockData(1);
+		Vec3Block blockPos = returnBlockData(10, 10, 10);
 
 		if (set == false) {
 			MovX = -blockPos.x;
@@ -196,9 +196,8 @@ int main(int argc, char* argv[])
 			set = true;
 		}
 		
-		//perlin noise test
 		SDL_GL_SwapWindow(window);
-		
+
 	}
 	SDL_GL_DeleteContext(glCONTEXT);
 	SDL_DestroyWindow(window);
