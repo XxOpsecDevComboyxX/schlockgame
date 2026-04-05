@@ -123,6 +123,7 @@ int main(int argc, char* argv[])
 		}
 
 		if (keystate[SDL_SCANCODE_Q]) {
+			running = 0;
 			return 0;
 		}
 
