@@ -122,6 +122,10 @@ int main(int argc, char* argv[])
 			MovZ -= rightZ * moveSpeed * dt;
 		}
 
+		if (keystate[SDL_SCANCODE_Q]) {
+			return 0;
+		}
+
 		if (keystate[SDL_SCANCODE_A]) {
 			MovX += rightX * moveSpeed * dt;
 			MovZ += rightZ * moveSpeed * dt;
