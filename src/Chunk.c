@@ -7,62 +7,44 @@
 int width;
 int length;
 int height;
-Vec3Block blockPos[9999];
+Vec3Block blockPos[10][10][10];
 
-int getIndex(double x, double y, double z);
+int countedBlocks = 0;
 
 void renderChunk() {
-	for (width = 0; width < 10; width++) {
-		for (length = 0; length < 10; length++) {
-			float noise = stb_perlin_noise3(width * 0.1, length * 0.1, 0.1, 0, 0, 0);
-			int terrainHeight = (int)((noise + 1.0f) * 10.0f);
-			for (height = 0; height < 5; height++) {
-				BlockType blockAssign;
-				int index = width * 100 + length * 10 + height;
-				float yPos = 2.0f * height + terrainHeight *2;
-				if (yPos > 10) {
-					int blockID = getIndex(2.0f * width, yPos + 2.0f, 2.0f * length);
-					Vec3Block blockBelow = returnBlockData(blockID);
-					if (blockBelow.type == BLOCK_GRASS && blockBelow.y == yPos + 2.0f) {
-						renderBlock(2.0f * width, yPos, 2.0f * length, getBlockType(BLOCK_DIRT));
-						blockAssign = BLOCK_DIRT;
-					}
-					else {
-						renderBlock(2.0f * width, yPos, 2.0f * length, getBlockType(BLOCK_GRASS));
-						blockAssign = BLOCK_GRASS;
-					}
+	countedBlocks = 0;
+	for (int i = 0; i < 10; i++) {
+		for (int j = 0; j < 10; j++) {
+			for (int k = 0; k < 10; k++) {
+				countedBlocks++;
+				if (k >= 3.0f) {
+					blockPos[i][j][k].type = BLOCK_AIR;
+					blockPos[i][j][k].x = i;
+					blockPos[i][j][k].y = j;
+					blockPos[i][j][k].z = k;
+					blockPos[i][j][k].index = countedBlocks;
+					renderBlock(2.0f * i, 2.0f * k, 2.0f * j, getBlockType(BLOCK_AIR));
+				} else if (k >= 2.0f) {
+					blockPos[i][j][k].type = BLOCK_GRASS;
+					blockPos[i][j][k].x = i;
+					blockPos[i][j][k].y = j;
+					blockPos[i][j][k].z = k;
+					blockPos[i][j][k].index = countedBlocks;
+					renderBlock(2.0f * i, 2.0f * k, 2.0f * j, getBlockType(BLOCK_GRASS));
+				} else {
+					blockPos[i][j][k].type = BLOCK_DIRT;
+					blockPos[i][j][k].x = i;
+					blockPos[i][j][k].y = j;
+					blockPos[i][j][k].z = k;
+					blockPos[i][j][k].index = countedBlocks;
+					renderBlock(2.0f * i, 2.0f * k, 2.0f * j, getBlockType(BLOCK_DIRT));
 				}
-				else if (yPos > 8) 
-				{
-					renderBlock(2.0f * width, yPos, 2.0f * length, getBlockType(BLOCK_DIRT));
-					blockAssign = BLOCK_DIRT;
-				}
-				else
-				{
-					renderBlock(2.0f * width, yPos, 2.0f * length, getBlockType(BLOCK_STONE));
-					blockAssign = BLOCK_STONE;
-				}
-				blockPos[index].x = 2.0f * width;
-				blockPos[index].y = yPos;
-				blockPos[index].z = 2.0f * length;
-				blockPos[index].type = blockAssign;
 			}
 		}
 	}
 }
 
-int getIndex(double x, double y, double z)
-{
-	for (int i = 0; i < 1000; i++)
-	{
-		if (blockPos[i].x == x &&
-			blockPos[i].y == y &&
-			blockPos[i].z == z)
-			return i;
-	}
-	return -1; // not found
-}
-
-Vec3Block returnBlockData(int Block) {
-	return blockPos[Block];
+Vec3Block returnBlockData(int x, int y, int z) {
+	 // printf("index: %d ", blockPos[x][y][z].index);
+	return blockPos[x][y][z];
 }
