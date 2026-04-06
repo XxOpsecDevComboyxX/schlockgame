@@ -155,6 +155,7 @@ int main(int argc, char* argv[])
 					if (isSolid(currentBlock)) {
 						Vec3Block latestBlock = returnBlockData(currentBlock.x, currentBlock.y, currentBlock.z);
 						blockPos[currentBlock.x][currentBlock.y][currentBlock.z].type = BLOCK_AIR;
+
 					}
 				}
 			}
