@@ -73,12 +73,20 @@ void renderBlock(float x, float y, float z, Block* block) {
 		glVertex3f(1, 1, 1);
 		glTexCoord2f(0, 0);
 		glVertex3f(1, 1, -1);
+		glEnd();
 
 		//Back side
-		glColor3f(0.0f, 1.0f, 1.0f);
+		glBindTexture(GL_TEXTURE_2D, block->topTextureID);
+		glBegin(GL_QUADS);
+
+		glColor3f(1.0f, 1.0f, 1.0f);
+		glTexCoord2f(0, 1);
 		glVertex3f(-1, -1, -1);
+		glTexCoord2f(1, 1);
 		glVertex3f(1, -1, -1);
+		glTexCoord2f(1, 0);
 		glVertex3f(1, -1, 1);
+		glTexCoord2f(0, 0);
 		glVertex3f(-1, -1, 1);
 
 		glEnd();
