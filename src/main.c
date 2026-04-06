@@ -10,6 +10,7 @@
 #endif
 #define SDL_MAIN_HANDLED
 #include <SDL.h>
+#include <SDL_ttf.h>
 #include <stdio.h>
 #include <math.h>
 #include "Block.h"
@@ -42,13 +43,52 @@ int main(int argc, char* argv[])
 	if (!glCONTEXT)
 		return 1;
 
-	SDL_SetRelativeMouseMode(SDL_TRUE);
+	TTF_Font* font = NULL;
 
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluPerspective(45.0, 640.0 / 480.0, 0.1, 100.0);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+	if (TTF_Init() != 0) {
+		printf("TTF_Init() failed\n");
+		return 1;
+	}
+
+	font = (TTF_OpenFont("Main.ttf", 16));
+		if (!font) {
+			printf("TTF_OpenFont() failed\n");
+			return 1;
+		}
+
+	SDL_Color white = { 255, 255, 255, 255 };
+
+	SDL_Surface* textSurface = TTF_RenderText_Blended(font, "Hello World!", white);
+	if (!textSurface) {
+		printf("TTF_RenderText_Blended() failed: %s\n", TTF_GetError());
+		return 1;
+	}
+
+	SDL_Surface* rgbaSurface = SDL_ConvertSurfaceFormat(textSurface, SDL_PIXELFORMAT_RGBA32, 0);
+	SDL_FreeSurface(textSurface);
+	if (!rgbaSurface) {
+		printf("SDL_ConvertSurfaceFormat() failed: %s\n", SDL_GetError());
+		return 1;
+	}
+
+	int textWidth = rgbaSurface->w;
+	int textHeight = rgbaSurface->h;
+
+	GLuint textTexture;
+
+	glGenTextures(1, &textTexture);
+	glBindTexture(GL_TEXTURE_2D, textTexture);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textWidth, textHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, rgbaSurface->pixels);
+
+	SDL_FreeSurface(rgbaSurface);
+
+	SDL_SetRelativeMouseMode(SDL_TRUE);
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
@@ -179,6 +219,11 @@ int main(int argc, char* argv[])
 		camDir.z = dirZ;
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		gluPerspective(45.0, 640.0 / 480.0, 0.1, 100.0);
+		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 
 		//physics//
@@ -219,7 +264,36 @@ int main(int argc, char* argv[])
 			set = true;
 		}
 
-		// RAYCAST LOGIC
+		glMatrixMode(GL_PROJECTION);
+		glPushMatrix();
+		glLoadIdentity();
+		glOrtho(0, 1280, 1024, 0, -1, 1);
+		glMatrixMode(GL_MODELVIEW);
+		glPushMatrix();
+		glLoadIdentity();
+
+		glDisable(GL_DEPTH_TEST);
+		glDisable(GL_CULL_FACE);
+		glBindTexture(GL_TEXTURE_2D, textTexture);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.0f, 0.0f); glVertex2f(10.0f, 10.0f);
+		glTexCoord2f(1.0f, 0.0f); glVertex2f(10.0f + textWidth, 10.0f);
+		glTexCoord2f(1.0f, 1.0f); glVertex2f(10.0f + textWidth, 10.0f + textHeight);
+		glTexCoord2f(0.0f, 1.0f); glVertex2f(10.0f, 10.0f + textHeight);
+		glEnd();
+
+		glDisable(GL_BLEND);
+		glEnable(GL_CULL_FACE);
+		glEnable(GL_DEPTH_TEST);
+
+		glPopMatrix();
+		glMatrixMode(GL_PROJECTION);
+		glPopMatrix();
+		glMatrixMode(GL_MODELVIEW);
+
 		SDL_GL_SwapWindow(window);
 
 	}
