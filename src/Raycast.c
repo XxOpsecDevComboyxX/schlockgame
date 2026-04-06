@@ -16,11 +16,11 @@ static Ivec3 worldToBlock(vec3 p) {
 
 Ivec3 getLookedAtblock(vec3 camPos, vec3 camDir) {
     float distance = 0.0f;
-    Ivec3 none = {0, 0, 0};
+    Ivec3 none = {-1, -1, -1};
 
     while (distance < 20.0f) {
         Ivec3 block = worldToBlock(camPos);
-        printf("%f %f %f\n", block.x, block.y, block.z);
+        printf("%d %d %d\n", block.x, block.y, block.z);
         if (isSolid(block)) {
             return block;
         }

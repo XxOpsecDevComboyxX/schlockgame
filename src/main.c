@@ -152,9 +152,10 @@ int main(int argc, char* argv[])
 			if (event.type == SDL_MOUSEBUTTONDOWN) {
 				if (event.button.button == SDL_BUTTON_LEFT) {
 					currentBlock = getLookedAtblock(camPos, camDir);
-					Vec3Block latestBlock = returnBlockData(currentBlock.x, currentBlock.y, currentBlock.z);
-					printf("%d", latestBlock.type);
-					blockPos[latestBlock.x][latestBlock.y][latestBlock.z].type = 0;
+					if (isSolid(currentBlock)) {
+						Vec3Block latestBlock = returnBlockData(currentBlock.x, currentBlock.y, currentBlock.z);
+						blockPos[currentBlock.x][currentBlock.y][currentBlock.z].type = BLOCK_AIR;
+					}
 				}
 			}
 		}

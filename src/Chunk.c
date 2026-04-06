@@ -47,7 +47,7 @@ void initChunk() {
 }
 
 void renderChunk() {
-	for (int i = 0; i < 1001; i++) {
+	for (int i = 1; i <= countedBlocks; i++) {
 		Vec3Block newBlock = getBlockByIndex(i);
 		renderBlock(newBlock.x, newBlock.y, newBlock.z, getBlockType(newBlock.type));
 	}
