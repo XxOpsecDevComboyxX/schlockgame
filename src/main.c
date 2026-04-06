@@ -174,7 +174,7 @@ int main(int argc, char* argv[])
 		camPos.z = -MovZ;
 
 		camDir.x = dirX;
-		camDir.y = dirY;
+		camDir.y = -dirY;
 		camDir.z = dirZ;
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
