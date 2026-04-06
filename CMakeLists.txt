@@ -17,6 +17,12 @@ target_include_directories(untitled PRIVATE include ${SDL2_PATH}/include/SDL2 ${
 target_link_libraries(untitled PRIVATE ${SDL2_PATH}/lib/libSDL2main.a ${SDL2_PATH}/lib/libSDL2.a ${SDL2ttf_PATH}/lib/libSDL2_ttf.a opengl32 glu32 mingw32 setupapi imm32 winmm version ole32 oleaut32 shell32 gdi32 user32 uuid dinput8 dxguid -static-libgcc -static-libstdc++ rpcrt4)
 elseif(UNIX AND NOT APPLE)
     find_package(SDL2 REQUIRED)
-    target_include_directories(untitled PRIVATE include ${SDL2_INCLUDE_DIRS})
+    target_include_directories(untitled PRIVATE include ${SDL2_INCLUDE_DIRS} )
     target_link_libraries(untitled PRIVATE SDL2::SDL2 SDL2::SDL2main GL GLU m)
+
+    find_package(PkgConfig REQUIRED)
+    pkg_check_modules(SDL2_TTF REQUIRED SDL2_ttf)
+
+    target_include_directories(untitled PRIVATE ${SDL2_TTF_INCLUDE_DIRS})
+    target_link_libraries(untitled PRIVATE ${SDL2_TTF_LIBRARIES})
 endif ()
