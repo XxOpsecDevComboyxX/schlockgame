@@ -1,3 +1,4 @@
+#include "Raycast.h"
 #ifdef _WIN32
 #include <windows.h>
 #include <gl\GL.h>
@@ -18,6 +19,7 @@
 #include "stb_image.h"
 #include "Blocks.h"
 #include "vec3.h"
+#include "Raycast.h"
 
 int main(int argc, char* argv[])
 {
@@ -58,6 +60,8 @@ int main(int argc, char* argv[])
 	SDL_Event event;
 
 	Uint32 lastTime = SDL_GetTicks();
+
+	int chunkinit = 0;
 	
 	float yaw = 0.0;
 	float pitch = 0.0;
@@ -73,14 +77,11 @@ int main(int argc, char* argv[])
 	float rightZ = 0.0;
 	float Velocity = 1.0f;
 	float Acceleration = 0.0f;
-	float RelGravity = 0.0f;
-	float x = 0;
-	float y = 0;
-	float z = 0;
-	int x_wrap = 0;
-	int y_wrap = 0;
-	int z_wrap = 0;
-	int	seed = 0;
+
+	vec3 camPos = {};
+	vec3 camDir = {};
+
+	Ivec3 currentBlock;
 
 	float dt = 0;
 
@@ -147,6 +148,15 @@ int main(int argc, char* argv[])
 				if (pitch > 89.0f) pitch = 89.0f;
 				if (pitch < -89.0f) pitch = -89.0f;
 			}
+
+			if (event.type == SDL_MOUSEBUTTONDOWN) {
+				if (event.button.button == SDL_BUTTON_LEFT) {
+					currentBlock = getLookedAtblock(camPos, camDir);
+					Vec3Block latestBlock = returnBlockData(currentBlock.x, currentBlock.y, currentBlock.z);
+					printf("%d", latestBlock.type);
+					blockPos[latestBlock.x][latestBlock.y][latestBlock.z].type = 0;
+				}
+			}
 		}
 
 		radYaw = yaw * M_PI / 180.0f;
@@ -158,14 +168,19 @@ int main(int argc, char* argv[])
 		rightX = cos(radYaw);
 		rightZ = sin(radYaw);
 
+		camPos.x = -MovX;
+		camPos.y = -MovY;
+		camPos.z = -MovZ;
+
+		camDir.x = dirX;
+		camDir.y = dirY;
+		camDir.z = dirZ;
+
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
 
 		//physics//
-		
-		RelGravity = Velocity + MovY;
-		Velocity = Velocity + Acceleration;
-		Acceleration = Acceleration + 0.00001;
+
 		glRotatef(pitch, 1.0f, 0.0f, 0.0f); // pitch
 		glRotatef(yaw, 0.0f, 1.0f, 0.0f); // yaw
 
@@ -184,19 +199,25 @@ int main(int argc, char* argv[])
 
 		//World gen and Render//
 
+		if (chunkinit == 0) {
+			initChunk();
+			chunkinit = 1;
+		}
+
 		initBlockTextures();
 		renderChunk();
 		cleanupBlockTextures();
 
-		Vec3Block blockPos = returnBlockData(10, 10, 10);
+		Vec3Block blockPos1 = returnBlockData(4, 5, 6);
 
 		if (set == false) {
-			MovX = -blockPos.x;
-			MovY = -blockPos.y;
-			MovZ = -blockPos.z;
+			MovX = -blockPos1.x;
+			MovY = -blockPos1.y;
+			MovZ = -blockPos1.z;
 			set = true;
 		}
-		
+
+		// RAYCAST LOGIC
 		SDL_GL_SwapWindow(window);
 
 	}
