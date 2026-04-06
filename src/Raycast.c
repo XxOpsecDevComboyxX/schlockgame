@@ -4,7 +4,7 @@
 #include <math.h>
 #include <stdio.h>
 
-#include "chunk.h"
+#include "Chunk.h"
 
 static Ivec3 worldToBlock(vec3 p) {
     Ivec3 block;
