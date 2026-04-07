@@ -8,9 +8,9 @@ typedef struct {
 	BlockType type;
 } Vec3Block;
 
-extern Vec3Block blockPos[10][10][10];
+extern Vec3Block blockPos[30][30][30];
 
-void initChunk();
+void initChunk(int chunks);
 void renderChunk();
 int isSolid(Ivec3 block);
 Vec3Block returnBlockData(int x, int y, int z);

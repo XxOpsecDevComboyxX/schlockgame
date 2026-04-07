@@ -8,9 +8,9 @@
 
 static Ivec3 worldToBlock(vec3 p) {
     Ivec3 block;
-    block.x = (int)(floorf((p.x / 2.0f)));
-    block.y = (int)(floorf((p.z / 2.0f)));
-    block.z = (int)(floorf((p.y / 2.0f)));
+    block.x = (int)((p.x / 2.0f));
+    block.y = (int)((p.z / 2.0f));
+    block.z = (int)((p.y / 2.0f));
     return block;
 }
 

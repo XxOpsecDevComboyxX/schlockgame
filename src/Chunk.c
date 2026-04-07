@@ -8,18 +8,16 @@
 int width;
 int length;
 int height;
-Vec3Block blockPos[10][10][10];
+Vec3Block blockPos[30][30][30];
 
 int countedBlocks = 0;
 
-int init = 0;
-
 Vec3Block getBlockByIndex(int index);
 
-void initChunk() {
+void initChunk(int chunks) {
 	countedBlocks = 0;
-	for (int i = 0; i < 10; i++) {
-		for (int j = 0; j < 10; j++) {
+	for (int i = 0; i < 10 * chunks; i++) {
+		for (int j = 0; j < 10 * chunks; j++) {
 			for (int k = 0; k < 10; k++) {
 				countedBlocks++;
 				if (k >= 3.0f) {
@@ -30,7 +28,7 @@ void initChunk() {
 					blockPos[i][j][k].index = countedBlocks;
 				} else if (k >= 2.0f) {
 					blockPos[i][j][k].type = BLOCK_GRASS;
-					blockPos[i][j][k].x = 2.0f * i;
+					blockPos[i][j][k].x = 2.0f * i ;
 					blockPos[i][j][k].y = 2.0f * k;
 					blockPos[i][j][k].z = 2.0f * j;
 					blockPos[i][j][k].index = countedBlocks;
@@ -67,8 +65,8 @@ Vec3Block returnBlockData(int x, int y, int z) {
 }
 
 Vec3Block getBlockByIndex(int index) {
-	for (int i = 0; i < 10; i++) {
-		for (int j = 0; j < 10; j++) {
+	for (int i = 0; i < 30; i++) {
+		for (int j = 0; j < 30; j++) {
 			for (int k = 0; k < 10; k++) {
 				if (blockPos[i][j][k].index == index) {
 					return blockPos[i][j][k];

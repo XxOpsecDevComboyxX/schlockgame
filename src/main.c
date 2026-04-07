@@ -22,6 +22,7 @@
 #include "vec3.h"
 #include "Raycast.h"
 #include "Display.h"
+#include "World.h"
 
 int main(int argc, char* argv[])
 {
@@ -75,20 +76,7 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 
-	int textWidth = rgbaSurface->w;
-	int textHeight = rgbaSurface->h;
-
-	GLuint textTexture;
-
-	glGenTextures(1, &textTexture);
-	glBindTexture(GL_TEXTURE_2D, textTexture);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textWidth, textHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, rgbaSurface->pixels);
+	GLuint textTexture = createTexturesFromSurface(textSurface, rgbaSurface);
 
 	SDL_FreeSurface(rgbaSurface);
 
@@ -246,13 +234,9 @@ int main(int argc, char* argv[])
 
 		//World gen and Render//
 
-		if (chunkinit == 0) {
-			initChunk();
-			chunkinit = 1;
-		}
 
 		initBlockTextures();
-		renderChunk();
+		generateWorld();
 		cleanupBlockTextures();
 
 		Vec3Block blockPos1 = returnBlockData(4, 5, 6);
@@ -277,7 +261,7 @@ int main(int argc, char* argv[])
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		drawTexturedQuad(textTexture, 10, 5, 0.6f * 1280, 0.025f * 1024);
+		drawTexturedQuad(textTexture, 10, 5, 0.7f * 1280, 0.025f * 1024);
 
 		glDisable(GL_BLEND);
 		glEnable(GL_CULL_FACE);

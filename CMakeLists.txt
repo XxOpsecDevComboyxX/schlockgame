@@ -6,6 +6,8 @@ set(CMAKE_C_STANDARD 17)
 set(SOURCES src/main.c src/Block.c src/Blocks.c src/Chunk.c src/Collision.c src/stb.c
         src/Raycast.c
         src/Display.c
+        src/World.c
+        include/World.h
 )
 
 set(HEADERS include/Blocks.h include/stb_image.h include/stb_perlin.h include/Block.h include/Collision.h include/vec3.h include/Chunk.h include/Raycast.h include/Display.h)
