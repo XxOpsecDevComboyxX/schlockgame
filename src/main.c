@@ -33,10 +33,12 @@ int main(int argc, char* argv[])
 		"SDL2 Window",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
-		1280,
-		1024,
+		640,
+		480,
 		SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN
 	);
+
+	SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
 
 	if (!window)
 		return 1;
