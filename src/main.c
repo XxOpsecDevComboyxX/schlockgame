@@ -21,6 +21,7 @@
 #include "Blocks.h"
 #include "vec3.h"
 #include "Raycast.h"
+#include "Display.h"
 
 int main(int argc, char* argv[])
 {
@@ -56,13 +57,16 @@ int main(int argc, char* argv[])
 			return 1;
 		}
 
+	const GLubyte* version = glGetString(GL_VERSION);
+	const GLubyte* vendor = glGetString(GL_VENDOR);
+	const GLubyte* renderer = glGetString(GL_RENDERER);
+
 	SDL_Color white = { 255, 255, 255, 255 };
 
-	SDL_Surface* textSurface = TTF_RenderText_Blended(font, "Hello World!", white);
-	if (!textSurface) {
-		printf("TTF_RenderText_Blended() failed: %s\n", TTF_GetError());
-		return 1;
-	}
+	char text[256];
+	sprintf(text, "%s%s%s", version, " rendered by ", renderer);
+
+	SDL_Surface* textSurface = TTF_RenderText_Blended(font, text, white);
 
 	SDL_Surface* rgbaSurface = SDL_ConvertSurfaceFormat(textSurface, SDL_PIXELFORMAT_RGBA32, 0);
 	SDL_FreeSurface(textSurface);
@@ -126,10 +130,6 @@ int main(int argc, char* argv[])
 	float dt = 0;
 
 	float moveSpeed = 50.0f;
-
-	const GLubyte* version = glGetString(GL_VERSION);
-	const GLubyte* vendor = glGetString(GL_VENDOR);
-	const GLubyte* renderer = glGetString(GL_RENDERER);
 
 	bool set = false;
 
@@ -274,16 +274,10 @@ int main(int argc, char* argv[])
 
 		glDisable(GL_DEPTH_TEST);
 		glDisable(GL_CULL_FACE);
-		glBindTexture(GL_TEXTURE_2D, textTexture);
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		glBegin(GL_QUADS);
-		glTexCoord2f(0.0f, 0.0f); glVertex2f(10.0f, 10.0f);
-		glTexCoord2f(1.0f, 0.0f); glVertex2f(10.0f + textWidth, 10.0f);
-		glTexCoord2f(1.0f, 1.0f); glVertex2f(10.0f + textWidth, 10.0f + textHeight);
-		glTexCoord2f(0.0f, 1.0f); glVertex2f(10.0f, 10.0f + textHeight);
-		glEnd();
+		drawTexturedQuad(textTexture, 10, 5, 0.1f * 1280, 0.05f * 1024);
 
 		glDisable(GL_BLEND);
 		glEnable(GL_CULL_FACE);
