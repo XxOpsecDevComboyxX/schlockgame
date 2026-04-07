@@ -52,8 +52,8 @@ void renderChunk() {
 }
 
 int isSolid(Ivec3 block) {
-	if (block.x < 0 || block.x >= 10) return 0;
-	if (block.y < 0 || block.y >= 10) return 0;
+	if (block.x < 0 || block.x >= 30) return 0;
+	if (block.y < 0 || block.y >= 30) return 0;
 	if (block.z < 0 || block.z >= 10) return 0;
 
 	return blockPos[block.x][block.y][block.z].type != BLOCK_AIR;
