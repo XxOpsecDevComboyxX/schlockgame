@@ -277,7 +277,7 @@ int main(int argc, char* argv[])
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		drawTexturedQuad(textTexture, 10, 5, 0.1f * 1280, 0.05f * 1024);
+		drawTexturedQuad(textTexture, 10, 5, 0.6f * 1280, 0.025f * 1024);
 
 		glDisable(GL_BLEND);
 		glEnable(GL_CULL_FACE);
