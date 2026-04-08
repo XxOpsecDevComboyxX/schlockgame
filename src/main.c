@@ -35,11 +35,8 @@ int main(int argc, char* argv[])
 		SDL_WINDOWPOS_CENTERED,
 		640,
 		480,
-		SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN
+		SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE
 	);
-
-	SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
-
 	if (!window)
 		return 1;
 	SDL_GLContext glCONTEXT = SDL_GL_CreateContext(window);
