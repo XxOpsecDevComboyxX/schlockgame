@@ -156,7 +156,6 @@ int main(int argc, char* argv[])
 		}
 
 		if (keystate[SDL_SCANCODE_L]) {
-			running = 0;
 			SDL_SetRelativeMouseMode(SDL_FALSE);
 		}
 
