@@ -157,17 +157,6 @@ int main(int argc, char* argv[])
 			return 0;
 		}
 
-		if (keystate[SDL_SCANCODE_L]) {
-			if (focusToggle == 0) {
-				SDL_SetRelativeMouseMode(SDL_FALSE);
-				focusToggle = 1;
-			}
-			else {
-				SDL_SetRelativeMouseMode(SDL_TRUE);
-				focusToggle = 0;
-			}
-		}
-
 		if (keystate[SDL_SCANCODE_A]) {
 			MovX += rightX * moveSpeed * dt;
 			MovZ += rightZ * moveSpeed * dt;
@@ -178,6 +167,19 @@ int main(int argc, char* argv[])
 		{
 			if (event.type == SDL_QUIT)
 				running = 0;
+
+			if (event.type == SDL_KEYDOWN) {
+				if (event.key.keysym.sym == SDLK_l) {
+					if (focusToggle == 0) {
+						SDL_SetRelativeMouseMode(SDL_FALSE);
+						focusToggle = 1;
+					}
+					else {
+						SDL_SetRelativeMouseMode(SDL_TRUE);
+						focusToggle = 0;
+					}
+				}
+			}
 
 			//camera rotation
 			if (event.type == SDL_MOUSEMOTION)
