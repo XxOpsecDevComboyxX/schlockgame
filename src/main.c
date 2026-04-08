@@ -109,6 +109,8 @@ int main(int argc, char* argv[])
 	float Velocity = 1.0f;
 	float Acceleration = 0.0f;
 
+	int focusToggle = 0;
+
 	vec3 camPos = {};
 	vec3 camDir = {};
 
@@ -156,7 +158,14 @@ int main(int argc, char* argv[])
 		}
 
 		if (keystate[SDL_SCANCODE_L]) {
-			SDL_SetRelativeMouseMode(SDL_FALSE);
+			if (focusToggle == 0) {
+				SDL_SetRelativeMouseMode(SDL_FALSE);
+				focusToggle = 1;
+			}
+			else {
+				SDL_SetRelativeMouseMode(SDL_TRUE);
+				focusToggle = 0;
+			}
 		}
 
 		if (keystate[SDL_SCANCODE_A]) {
